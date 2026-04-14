@@ -1,0 +1,20 @@
+/* ==========================================================================
+   Theme: Minimal — video-card.css
+   Nearly invisible — subtle radius and soft hover lift only.
+   Scoped to  body[data-yt-theme="minimal"].
+   ========================================================================== */
+
+body[data-yt-theme="minimal"] [data-yt-card-style] {
+  background: rgba(255, 255, 255, 0.03) !important;
+  border-radius: 12px !important;
+  border: 1px solid rgba(255, 255, 255, 0.06) !important;
+  padding: 6px !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+  will-change: transform;
+}
+
+body[data-yt-theme="minimal"] [data-yt-card-style]:hover {
+  transform: scale(1.03) !important;
+  z-index: 10 !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5) !important;
+}

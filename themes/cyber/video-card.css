@@ -1,0 +1,67 @@
+/* ==========================================================================
+   Theme: Cyber — video-card.css
+   Neon-border cyberpunk look with animated conic gradient on hover.
+
+   Scoped to  body[data-yt-theme="cyber"]  so it is completely isolated.
+   The @property rule is global but uses the same name as the legacy pack —
+   if both are loaded simultaneously there is no conflict (identical values).
+   ========================================================================== */
+
+@property --yt-theme-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+body[data-yt-theme="cyber"] [data-yt-card-style] {
+  position: relative;
+  background: rgba(0, 0, 0, 0.55) !important;
+  border-radius: 8px !important;
+  border: 1px solid rgba(120, 40, 255, 0.6) !important;
+  box-shadow:
+    0 0 8px rgba(120, 40, 255, 0.35),
+    inset 0 0 4px rgba(0, 200, 255, 0.05) !important;
+  padding: 8px !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease !important;
+  will-change: transform;
+  overflow: hidden;
+}
+
+/* Animated conic border layer — only on hover */
+body[data-yt-theme="cyber"] [data-yt-card-style]::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 10px;
+  background: conic-gradient(
+    from var(--yt-theme-angle),
+    #00f0ff, #7a28ff, #ff00c8, #00f0ff
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  opacity: 0;
+  pointer-events: none;
+}
+
+body[data-yt-theme="cyber"] [data-yt-card-style]:hover {
+  transform: scale(1.04) translateY(-2px) !important;
+  z-index: 10 !important;
+  border-color: rgba(0, 200, 255, 0.9) !important;
+  box-shadow:
+    0 0 18px rgba(0, 200, 255, 0.6),
+    0 0 40px rgba(120, 40, 255, 0.4),
+    0 12px 30px rgba(0, 0, 0, 0.8) !important;
+}
+
+body[data-yt-theme="cyber"] [data-yt-card-style]:hover::before {
+  opacity: 1;
+  animation: yt-theme-cyber-spin 1.6s linear infinite;
+}
+
+@keyframes yt-theme-cyber-spin {
+  to { --yt-theme-angle: 360deg; }
+}

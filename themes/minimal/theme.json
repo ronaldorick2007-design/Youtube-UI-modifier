@@ -1,0 +1,7 @@
+{
+  "name": "Minimal",
+  "id": "minimal",
+  "description": "Nearly invisible — subtle radius and soft hover lift only",
+  "hasBackground": false,
+  "cardStyleValue": "minimal"
+}

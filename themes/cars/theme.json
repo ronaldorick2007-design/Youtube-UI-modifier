@@ -1,0 +1,7 @@
+{
+  "name": "Cars",
+  "id": "cars",
+  "description": "Cool cars background image with flashy video cards",
+  "hasBackground": true,
+  "cardStyleValue": "cars"
+}

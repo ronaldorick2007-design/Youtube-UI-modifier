@@ -1,0 +1,7 @@
+{
+  "name": "Glass",
+  "id": "glass",
+  "description": "Frosted-glass morphism with blur and scale-on-hover",
+  "hasBackground": true,
+  "cardStyleValue": "glass"
+}

@@ -1,0 +1,114 @@
+/* ==========================================================================
+   Theme: cars / Ferrari — video-card.css
+   Aggressive race styling with heat glow + velocity energy border
+   ========================================================================== */
+
+@property --yt-theme-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+body[data-yt-theme="cars"] [data-yt-card-style] {
+  position: relative;
+  background: linear-gradient(
+    145deg,
+    rgba(10, 10, 10, 0.9),
+    rgba(25, 0, 0, 0.85)
+  ) !important;
+
+  border-radius: 4px !important;
+
+  /* Carbon + Ferrari red edge */
+  border: 1px solid rgba(255, 30, 30, 0.7) !important;
+
+  box-shadow:
+    0 0 6px rgba(255, 0, 0, 0.25),
+    inset 0 0 8px rgba(255, 60, 0, 0.08),
+    inset 0 0 2px rgba(255, 255, 255, 0.05) !important;
+
+  padding: 8px !important;
+
+  transition:
+    transform 0.18s cubic-bezier(0.2, 0.8, 0.2, 1),
+    box-shadow 0.18s ease,
+    border-color 0.18s ease !important;
+
+  will-change: transform;
+  overflow: hidden;
+}
+
+/* Race energy ring */
+body[data-yt-theme="cars"] [data-yt-card-style]::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 8px;
+
+  background: conic-gradient(
+    from var(--yt-theme-angle),
+    #ff0000,
+    #ff5a00,
+    #ffd000,
+    #ffffff,
+    #ff0000
+  );
+
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Hover = acceleration */
+body[data-yt-theme="cars"] [data-yt-card-style]:hover {
+  transform: scale(1.05) translateY(-3px) !important;
+
+  z-index: 12 !important;
+
+  border-color: rgba(255, 80, 0, 1) !important;
+
+  box-shadow:
+    0 0 14px rgba(255, 0, 0, 0.7),
+    0 0 30px rgba(255, 80, 0, 0.5),
+    0 10px 28px rgba(0, 0, 0, 0.9) !important;
+}
+
+/* Activate energy spin */
+body[data-yt-theme="cars"] [data-yt-card-style]:hover::before {
+  opacity: 1;
+  animation: yt-theme-cars-spin 1.2s linear infinite;
+}
+
+/* Speed streak layer */
+body[data-yt-theme="cars"] [data-yt-card-style]::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background: linear-gradient(
+    120deg,
+    transparent 40%,
+    rgba(255, 255, 255, 0.08) 50%,
+    transparent 60%
+  );
+
+  opacity: 0;
+  transform: translateX(-100%);
+}
+
+body[data-yt-theme="cars"] [data-yt-card-style]:hover::after {
+  opacity: 1;
+  transform: translateX(120%);
+  transition: transform 1.5s ease;
+}
+
+@keyframes yt-theme-cars-spin {
+  to { --yt-theme-angle: 360deg; }
+}

@@ -1,0 +1,7 @@
+{
+  "name": "Iron Man",
+  "id": "ironman",
+  "description": "Red-and-gold arc-reactor aesthetic with pulsing card borders",
+  "hasBackground": true,
+  "cardStyleValue": "ironman"
+}

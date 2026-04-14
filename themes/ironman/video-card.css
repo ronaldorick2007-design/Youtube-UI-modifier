@@ -1,0 +1,82 @@
+/* ==========================================================================
+   Theme: Iron Man — video-card.css
+   Red-and-gold arc-reactor aesthetic.
+   Scoped to  body[data-yt-theme="ironman"].
+
+   HOW TO CUSTOMISE
+   ─────────────────
+   Change --im-red and --im-gold to adjust the colour palette.
+   The pulse animation speed is in the @keyframes block at the bottom.
+   ========================================================================== */
+
+body[data-yt-theme="ironman"] {
+  --im-red:        #c0392b;
+  --im-gold:       #f0a500;
+  --im-dark:       #1a0a00;
+  --im-glow-red:   rgba(192, 57, 43, 0.55);
+  --im-glow-gold:  rgba(240, 165, 0, 0.45);
+}
+
+/* ── Card base ─────────────────────────────────────────────────────────── */
+body[data-yt-theme="ironman"] [data-yt-card-style] {
+  position: relative;
+  background: linear-gradient(
+    145deg,
+    rgba(30, 5, 5, 0.82),
+    rgba(20, 10, 0, 0.88)
+  ) !important;
+  border-radius: 10px !important;
+  border: 1.5px solid var(--im-red) !important;
+  box-shadow:
+    0 0 8px var(--im-glow-red),
+    inset 0 0 6px rgba(240, 165, 0, 0.06) !important;
+  padding: 8px !important;
+  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease !important;
+  will-change: transform;
+  overflow: hidden;
+}
+
+/* Gold corner accent — top-left */
+body[data-yt-theme="ironman"] [data-yt-card-style]::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 40px;
+  height: 2px;
+  background: var(--im-gold);
+  border-radius: 0 0 2px 0;
+  opacity: 0.8;
+  pointer-events: none;
+}
+
+/* Gold corner accent — bottom-right */
+body[data-yt-theme="ironman"] [data-yt-card-style]::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 40px;
+  height: 2px;
+  background: var(--im-gold);
+  border-radius: 2px 0 0 0;
+  opacity: 0.8;
+  pointer-events: none;
+}
+
+/* ── Hover state ───────────────────────────────────────────────────────── */
+body[data-yt-theme="ironman"] [data-yt-card-style]:hover {
+  transform: scale(1.04) translateY(-2px) !important;
+  z-index: 10 !important;
+  border-color: var(--im-gold) !important;
+  box-shadow:
+    0 0 16px var(--im-glow-gold),
+    0 0 36px var(--im-glow-red),
+    0 10px 28px rgba(0, 0, 0, 0.8) !important;
+  animation: im-pulse 1.4s ease-in-out infinite !important;
+}
+
+@keyframes im-pulse {
+  0%,  100% { box-shadow: 0 0 16px var(--im-glow-gold), 0 0 36px var(--im-glow-red), 0 10px 28px rgba(0,0,0,0.8); }
+  50%        { box-shadow: 0 0 28px var(--im-glow-gold), 0 0 56px var(--im-glow-red), 0 10px 28px rgba(0,0,0,0.8); }
+}
