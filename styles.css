@@ -1,0 +1,27 @@
+/* ==========================================================================
+   YouTube Unified — styles.css  (v6)
+
+   Single CSS entry point declared in manifest.json.
+   Imports all CSS modules in dependency order:
+
+     1. base.css              — element-killer failsafe + structural resets
+     2. background.css        — body::before shell (image injected by JS)
+     3. video-card.css        — all card style packs + glass header
+     4. text-colors.css       — user-controlled card text colors       [v4]
+     5. block-shorts.css      — Shorts hider (toggled via popup)       [v5]
+     6. disable-comments.css  — hides comments section                 [v6 NEW]
+     7. description-style.css — white bg for description panel         [v6 NEW]
+     8. bootscreen.css        — intro overlay
+
+   Do NOT put visual rules here; use the appropriate module file instead.
+   ========================================================================== */
+
+@import url("css/base.css");
+@import url("css/background.css");
+@import url("css/video-card.css");
+@import url("css/text-colors.css");
+@import url("css/block-shorts.css");
+@import url("css/hide-recommendations.css");
+@import url("css/disable-comments.css");
+@import url("css/description-style.css");
+@import url("css/bootscreen.css");

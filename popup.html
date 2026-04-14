@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>YouTube Unified</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #0f0f13;
+      --surface:   #1a1a24;
+      --surface2:  #22222f;
+      --border:    rgba(255,255,255,0.07);
+      --accent-on: #4ade80;
+      --text:      #e8e8f0;
+      --text-dim:  rgba(232,232,240,0.45);
+      --radius:    10px;
+      --width:     288px;
+    }
+
+    body {
+      width: var(--width);
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 13px;
+      line-height: 1.4;
+      user-select: none;
+    }
+
+    /* ── Header ──────────────────────────────────────────────────────────── */
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 13px 16px 11px;
+      border-bottom: 1px solid var(--border);
+      background: var(--surface);
+    }
+    .header-icon {
+      width: 28px; height: 28px;
+      background: linear-gradient(135deg,#ff0000,#cc0000);
+      border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; font-size: 14px;
+    }
+    .header-text h1 { font-size: 13px; font-weight: 600; letter-spacing:.02em; }
+    .header-text p  { font-size: 10px; color: var(--text-dim); margin-top: 1px; }
+    .status {
+      margin-left: auto;
+      display: flex; align-items: center; gap: 5px;
+      font-size: 10px; color: var(--text-dim);
+    }
+    #status-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--accent-on); transition: background .3s;
+    }
+    #status-dot.saved { background: #facc15; }
+
+    /* ── Section shell ───────────────────────────────────────────────────── */
+    .section {
+      padding: 11px 16px;
+      border-bottom: 1px solid var(--border);
+    }
+    .section:last-child { border-bottom: none; }
+    .section-label {
+      font-size: 9px; font-weight: 700;
+      letter-spacing: .12em; text-transform: uppercase;
+      color: var(--text-dim); margin-bottom: 9px;
+    }
+
+    /* ── Theme list ──────────────────────────────────────────────────────── */
+    #theme-list {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .theme-card {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 10px;
+      border-radius: 8px;
+      border: 1.5px solid var(--border);
+      background: var(--surface2);
+      cursor: pointer;
+      transition: border-color .15s, background .15s;
+    }
+    .theme-card:hover {
+      border-color: rgba(255,255,255,0.2);
+      background: #2a2a3a;
+    }
+    .theme-card.active {
+      border-color: var(--accent-on);
+      background: rgba(74,222,128,0.07);
+    }
+
+    /* Radio dot */
+    .theme-card-dot {
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.2);
+      flex-shrink: 0;
+      transition: border-color .15s, background .15s;
+      position: relative;
+    }
+    .theme-card.active .theme-card-dot {
+      border-color: var(--accent-on);
+      background: var(--accent-on);
+    }
+    .theme-card.active .theme-card-dot::after {
+      content: "";
+      position: absolute;
+      inset: 3px;
+      border-radius: 50%;
+      background: #0f0f13;
+    }
+
+    .theme-card-info { display: flex; flex-direction: column; gap: 1px; }
+    .theme-card-name { font-size: 12px; font-weight: 500; color: var(--text); }
+    .theme-card-desc { font-size: 10px; color: var(--text-dim); }
+
+    .theme-empty { font-size: 11px; color: var(--text-dim); padding: 4px 0; }
+
+    /* ── Toggle rows ─────────────────────────────────────────────────────── */
+    .toggle-row {
+      display: flex; align-items: center;
+      justify-content: space-between;
+      padding: 7px 0;
+    }
+    .toggle-row + .toggle-row { border-top: 1px solid var(--border); }
+    .toggle-info { display: flex; flex-direction: column; gap: 1px; }
+    .toggle-name { font-size: 12px; font-weight: 500; color: var(--text); }
+    .toggle-desc { font-size: 10px; color: var(--text-dim); }
+
+    /* Pill switch */
+    .switch { position: relative; width: 36px; height: 20px; flex-shrink: 0; }
+    .switch input { opacity: 0; width: 0; height: 0; position: absolute; }
+    .switch-track {
+      position: absolute; inset: 0;
+      border-radius: 20px;
+      background: var(--surface2);
+      border: 1.5px solid rgba(255,255,255,0.12);
+      cursor: pointer;
+      transition: background .2s, border-color .2s;
+    }
+    .switch-track::after {
+      content: "";
+      position: absolute;
+      left: 2px; top: 50%;
+      transform: translateY(-50%);
+      width: 13px; height: 13px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.4);
+      transition: left .2s, background .2s;
+    }
+    .switch input:checked + .switch-track {
+      background: rgba(74,222,128,0.2);
+      border-color: var(--accent-on);
+    }
+    .switch input:checked + .switch-track::after {
+      left: calc(100% - 15px);
+      background: var(--accent-on);
+    }
+
+    /* ── Footer ──────────────────────────────────────────────────────────── */
+    .footer {
+      padding: 7px 16px;
+      font-size: 9px; color: var(--text-dim);
+      text-align: center;
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <div class="header">
+    <div class="header-icon">▶</div>
+    <div class="header-text">
+      <h1>YouTube Unified</h1>
+      <p>v7 · Theme Engine</p>
+    </div>
+    <div class="status">
+      <div id="status-dot"></div>
+      <span id="status-label">Active</span>
+    </div>
+  </div>
+
+  <!-- Theme Selector — dynamically populated by popup.js -->
+  <div class="section">
+    <div class="section-label">Theme</div>
+    <div id="theme-list">
+      <p class="theme-empty" style="color:var(--text-dim);font-size:11px">Loading themes…</p>
+    </div>
+  </div>
+
+  <!-- Content Toggles -->
+  <div class="section">
+    <div class="section-label">Content</div>
+
+    <div class="toggle-row">
+      <div class="toggle-info">
+        <span class="toggle-name">Block Shorts</span>
+        <span class="toggle-desc">Hide Shorts from all feeds</span>
+      </div>
+      <label class="switch">
+        <input type="checkbox" id="toggle-block-shorts" />
+        <span class="switch-track"></span>
+      </label>
+    </div>
+
+    <div class="toggle-row">
+      <div class="toggle-info">
+        <span class="toggle-name">Disable Comments</span>
+        <span class="toggle-desc">Hide comments section</span>
+      </div>
+      <label class="switch">
+        <input type="checkbox" id="toggle-disable-comments" />
+        <span class="switch-track"></span>
+      </label>
+    </div>
+
+    <div class="toggle-row">
+      <div class="toggle-info">
+        <span class="toggle-name">Hide Recommendations</span>
+        <span class="toggle-desc">Hide sidebar on watch pages</span>
+      </div>
+      <label class="switch">
+        <input type="checkbox" id="toggle-delay-recs" />
+        <span class="switch-track"></span>
+      </label>
+    </div>
+
+  </div>
+
+  <div class="footer">Drop a folder into /themes/ to add a new theme</div>
+
+  <script src="js/popup.js"></script>
+</body>
+</html>
