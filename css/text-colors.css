@@ -1,0 +1,121 @@
+/* ==========================================================================
+   YouTube Unified — css/text-colors.css  (v5)
+   User-controllable text colors for video card content.
+
+   ACTIVATION (v5)
+   ─────────────────────────────────────────────────────────────────────────
+   Text color rules are scoped behind  body[data-yt-text-colors]  which is
+   stamped by stateManager in content.js when enableTextColors is true.
+   When the toggle is OFF the attribute is absent and this file is a no-op.
+
+   CSS variables remain on :root unconditionally so they can be read by
+   other rules or dev-tools overrides — they have no visual effect unless
+   the selector blocks below also match.
+
+   HOW IT WORKS
+   ─────────────────────────────────────────────────────────────────────────
+   • CSS custom properties are declared on :root — cascade into all elements.
+   • Every color rule is scoped inside BOTH:
+       body[data-yt-text-colors]   — popup toggle gate
+       [data-yt-card-style]        — card theme gate
+   • No layout properties are set — color/fill only.
+   • Per-theme variable overrides sit on [data-yt-card-style="X"] blocks so
+     they apply automatically without any JS involvement.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   TOKEN DEFINITIONS — edit these to change colors site-wide.
+   These variables are always declared (no gate needed).
+   -------------------------------------------------------------------------- */
+:root {
+  --yt-card-title-color:   #ffffff;
+  --yt-card-channel-color: rgba(255, 255, 255, 0.75);
+  --yt-card-meta-color:    rgba(255, 255, 255, 0.55);
+  --yt-card-badge-color:   #ffffff;
+}
+
+/* --------------------------------------------------------------------------
+   TITLE — primary video headline
+   -------------------------------------------------------------------------- */
+body[data-yt-text-colors] [data-yt-card-style] #video-title,
+body[data-yt-text-colors] [data-yt-card-style] .ytd-rich-grid-media #video-title,
+body[data-yt-text-colors] [data-yt-card-style] yt-formatted-string.ytd-rich-grid-media,
+body[data-yt-text-colors] [data-yt-card-style] .title.ytd-compact-video-renderer,
+body[data-yt-text-colors] [data-yt-card-style] #video-title.ytd-compact-video-renderer,
+body[data-yt-text-colors] [data-yt-card-style] #video-title.ytd-grid-video-renderer,
+body[data-yt-text-colors] [data-yt-card-style] h3.ytd-rich-grid-media a,
+body[data-yt-text-colors] [data-yt-card-style] .yt-lockup-view-model-wiz__title,
+body[data-yt-text-colors] [data-yt-card-style] .yt-core-attributed-string[role="text"],
+body[data-yt-text-colors] [data-yt-card-style] .ytLockupMetadataViewModelTitle,
+body[data-yt-text-colors] [data-yt-card-style] .ytLockupMetadataViewModelTitle a,
+body[data-yt-text-colors] [data-yt-card-style] .ytLockupMetadataViewModelTitle span {
+  color: var(--yt-card-title-color) !important;
+}
+
+/* --------------------------------------------------------------------------
+   CHANNEL NAME — author / uploader link
+   -------------------------------------------------------------------------- */
+body[data-yt-text-colors] [data-yt-card-style] #channel-name,
+body[data-yt-text-colors] [data-yt-card-style] #channel-name .ytd-channel-name,
+body[data-yt-text-colors] [data-yt-card-style] ytd-channel-name yt-formatted-string,
+body[data-yt-text-colors] [data-yt-card-style] ytd-channel-name a,
+body[data-yt-text-colors] [data-yt-card-style] .ytd-compact-video-renderer #channel-name,
+body[data-yt-text-colors] [data-yt-card-style] .yt-lockup-view-model-wiz__subtitle a,
+body[data-yt-text-colors] [data-yt-card-style] .yt-lockup-view-model-wiz__subtitle span {
+  color: var(--yt-card-channel-color) !important;
+}
+
+/* --------------------------------------------------------------------------
+   METADATA — view count, date, short description snippets
+   -------------------------------------------------------------------------- */
+body[data-yt-text-colors] [data-yt-card-style] #metadata-line span,
+body[data-yt-text-colors] [data-yt-card-style] #metadata-line .ytd-video-meta-block,
+body[data-yt-text-colors] [data-yt-card-style] ytd-video-meta-block span,
+body[data-yt-text-colors] [data-yt-card-style] .ytd-thumbnail-overlay-time-status-renderer,
+body[data-yt-text-colors] [data-yt-card-style] #description-text,
+body[data-yt-text-colors] [data-yt-card-style] .ytd-compact-video-renderer #metadata-line span,
+body[data-yt-text-colors] [data-yt-card-style] .yt-lockup-view-model-wiz__metadata span,
+body[data-yt-text-colors] [data-yt-card-style] yt-content-metadata-view-model,
+body[data-yt-text-colors] [data-yt-card-style] yt-content-metadata-view-model span,
+body[data-yt-text-colors] [data-yt-card-style] yt-content-metadata-view-model .ytContentMetadataViewModelHost,
+body[data-yt-text-colors] [data-yt-card-style] .ytContentMetadataViewModelHost,
+body[data-yt-text-colors] [data-yt-card-style] .ytContentMetadataViewModelHost span {
+  color: var(--yt-card-meta-color) !important;
+}
+
+/* --------------------------------------------------------------------------
+   DURATION BADGE — the time pill overlaid on the thumbnail
+   -------------------------------------------------------------------------- */
+body[data-yt-text-colors] [data-yt-card-style] ytd-thumbnail-overlay-time-status-renderer span,
+body[data-yt-text-colors] [data-yt-card-style] .ytd-thumbnail-overlay-time-status-renderer span,
+body[data-yt-text-colors] [data-yt-card-style] badge-shape div {
+  color: var(--yt-card-badge-color) !important;
+}
+
+/* --------------------------------------------------------------------------
+   THEME OVERRIDES — per-pack variable re-declarations.
+   These are NOT gated behind data-yt-text-colors because they only define
+   variables, never apply color directly. If text-colors is off, the
+   variables are declared but never consumed — zero visual impact.
+   -------------------------------------------------------------------------- */
+
+/* — glass — */
+[data-yt-card-style="glass"] {
+  --yt-card-title-color:   #ffffff;
+  --yt-card-channel-color: rgba(220, 220, 230, 0.80);
+  --yt-card-meta-color:    rgba(200, 200, 215, 0.60);
+}
+
+/* — cyber — */
+[data-yt-card-style="cyber"] {
+  --yt-card-title-color:   #e0f7ff;
+  --yt-card-channel-color: rgba(0, 220, 255, 0.80);
+  --yt-card-meta-color:    rgba(150, 200, 255, 0.60);
+}
+
+/* — minimal — */
+[data-yt-card-style="minimal"] {
+  --yt-card-title-color:   #f0f0f0;
+  --yt-card-channel-color: rgba(210, 210, 210, 0.70);
+  --yt-card-meta-color:    rgba(180, 180, 180, 0.55);
+}

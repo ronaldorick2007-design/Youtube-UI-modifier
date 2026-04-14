@@ -1,0 +1,45 @@
+/* ==========================================================================
+   YouTube Unified — css/base.css
+   Structural resets: transparency layer, element-killer failsafe.
+   Loaded first; must not contain any visual opinions.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Element Killer — CSS failsafe (hides shelves before JS removes them)
+   -------------------------------------------------------------------------- */
+grid-shelf-view-model {
+  display: none !important;
+}
+
+/* --------------------------------------------------------------------------
+   Transparency — strip YouTube's default backgrounds so the custom
+   background image shows through.
+   -------------------------------------------------------------------------- */
+ytd-app,
+#primary,
+#contents,
+ytd-rich-grid-renderer,
+ytd-two-column-browse-results-renderer {
+  background: transparent !important;
+}
+
+/* --------------------------------------------------------------------------
+   Sidebar — preserve guide/drawer readability (keep browser default)
+   -------------------------------------------------------------------------- */
+ytd-guide-renderer,
+#guide,
+tp-yt-app-drawer {
+  background: initial !important;
+}
+
+/* --------------------------------------------------------------------------
+   Card spacing — margin and stacking context for video cards.
+   Hover / scale styles live in video-card.css.
+   -------------------------------------------------------------------------- */
+ytd-rich-item-renderer,
+ytd-video-renderer {
+  margin: 14px !important;
+  transform-origin: center;
+  /* Isolated stacking context so scaled cards don't bleed under siblings */
+  isolation: isolate;
+}

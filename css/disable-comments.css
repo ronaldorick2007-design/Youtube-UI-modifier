@@ -1,0 +1,50 @@
+/* ==========================================================================
+   YouTube Unified — css/disable-comments.css
+   Hides the YouTube comments section entirely.
+
+   ACTIVATION
+   ─────────────────────────────────────────────────────────────────────────
+   All rules are gated behind  body[data-yt-disable-comments].
+   The attribute is stamped by stateManager in content.js when the popup
+   toggle is ON. When absent this entire file is a no-op.
+
+   COVERAGE
+   ─────────────────────────────────────────────────────────────────────────
+   • ytd-comments           — outer comments web component (watch page)
+   • #comments              — id-based fallback used by some YT rollouts
+   • ytd-comment-thread-renderer — individual comment threads
+   • ytd-comments-header-renderer — the "X Comments" heading row
+   • The engagement panel comments variant (search/Shorts adjacent pages)
+
+   CSS-only is sufficient. Comments are not dynamically injected in a way
+   that would escape display:none — they live in the same DOM subtree and
+   are stable once rendered. No JS enforcement needed.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Primary comment container — covers all known rollout variants
+   -------------------------------------------------------------------------- */
+body[data-yt-disable-comments] ytd-comments,
+body[data-yt-disable-comments] #comments,
+body[data-yt-disable-comments] ytd-comments-header-renderer,
+body[data-yt-disable-comments] ytd-comment-thread-renderer,
+body[data-yt-disable-comments] ytd-comment-renderer,
+body[data-yt-disable-comments] ytd-comment-replies-renderer {
+  display: none !important;
+}
+
+/* --------------------------------------------------------------------------
+   Engagement-panel comments (appears in some A/B rollouts)
+   -------------------------------------------------------------------------- */
+body[data-yt-disable-comments]
+  ytd-engagement-panel-section-list-renderer[target-id*="comment"] {
+  display: none !important;
+}
+
+/* --------------------------------------------------------------------------
+   "Comments are turned off" notice — hide it too for visual cleanliness
+   -------------------------------------------------------------------------- */
+body[data-yt-disable-comments] ytd-message-renderer,
+body[data-yt-disable-comments] yt-formatted-string.ytd-message-renderer {
+  display: none !important;
+}

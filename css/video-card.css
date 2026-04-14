@@ -1,0 +1,156 @@
+/* ==========================================================================
+   YouTube Unified — css/video-card.css
+   Visual styles for video cards.
+
+   Card styles are applied by glassUI in content.js via data attributes,
+   which read CONFIG.cardStyle. The CSS classes defined here are the
+   swappable "style packs". Adding a new pack = add a new block below
+   and register its name in CONFIG.cardStyle + glassUI.CARD_STYLES.
+
+   Hover animations use CSS transitions only — no JS animation loops,
+   no requestAnimationFrame. JS only sets/removes the data-attribute;
+   CSS does all the visual work.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   PACK: glass (default) — frosted-glass morphism
+   -------------------------------------------------------------------------- */
+[data-yt-card-style="glass"] {
+  background: rgba(255, 255, 255, 0.08) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border-radius: 20px !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  padding: 10px !important;
+  transition: transform 0.25s ease, box-shadow 0.25s ease !important;
+  will-change: transform;
+}
+
+[data-yt-card-style="glass"]:hover {
+  transform: scale(1.06) !important;
+  z-index: 10 !important;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7) !important;
+  
+}
+
+/* --------------------------------------------------------------------------
+   PACK: cyber — neon-border cyberpunk look
+   -------------------------------------------------------------------------- */
+/* animatable angle */
+@property --angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+[data-yt-card-style="cyber"] {
+  position: relative; /* REQUIRED for overlay */
+
+  background: rgba(0, 0, 0, 0.55) !important;
+  border-radius: 8px !important;
+  border: 1px solid rgba(120, 40, 255, 0.6) !important;
+
+  box-shadow:
+    0 0 8px rgba(120, 40, 255, 0.35),
+    inset 0 0 4px rgba(0, 200, 255, 0.05) !important;
+
+  padding: 8px !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease !important;
+  will-change: transform;
+
+  overflow: hidden; /* keeps border tight */
+}
+
+/* 🔥 animated border layer */
+[data-yt-card-style="cyber"]::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 10px;
+
+  background: conic-gradient(
+    from var(--angle),
+    #00f0ff,
+    #7a28ff,
+    #ff00c8,
+    #00f0ff
+  );
+
+  /* cut center → only border visible */
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* hover core */
+[data-yt-card-style="cyber"]:hover {
+  transform: scale(1.04) translateY(-2px) !important;
+  z-index: 10 !important;
+
+  border-color: rgba(0, 200, 255, 0.9) !important;
+
+  box-shadow:
+    0 0 18px rgba(0, 200, 255, 0.6),
+    0 0 40px rgba(120, 40, 255, 0.4),
+    0 12px 30px rgba(0, 0, 0, 0.8) !important;
+}
+
+/* 🔥 activate running border ONLY on hover */
+[data-yt-card-style="cyber"]:hover::before {
+  opacity: 1;
+  animation: cyber-spin 1.6s linear infinite;
+}
+
+/* animation */
+@keyframes cyber-spin {
+  to {
+    --angle: 360deg;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   PACK: minimal — nearly invisible, just a subtle radius + hover lift
+   -------------------------------------------------------------------------- */
+[data-yt-card-style="minimal"] {
+  background: rgba(255, 255, 255, 0.03) !important;
+  border-radius: 12px !important;
+  border: 1px solid rgba(255, 255, 255, 0.06) !important;
+  padding: 6px !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+  will-change: transform;
+}
+
+[data-yt-card-style="minimal"]:hover {
+  transform: scale(1.03) !important;
+  z-index: 10 !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* --------------------------------------------------------------------------
+   PACK: none — style pack disabled; glassUI will not apply any attribute.
+   No rules needed here.
+   -------------------------------------------------------------------------- */
+
+/* --------------------------------------------------------------------------
+   Header — glass masthead (toggled via CONFIG.enableGlassHeader)
+   Placed here since it's part of the "chrome" visual layer.
+   Only active when JS adds [data-yt-glass-header] to <body>.
+   -------------------------------------------------------------------------- */
+body[data-yt-glass-header] ytd-masthead,
+body[data-yt-glass-header] #masthead,
+body[data-yt-glass-header] tp-yt-app-header {
+  background: transparent !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+}
+
+body[data-yt-glass-header] ytd-masthead #background,
+body[data-yt-glass-header] ytd-masthead #container {
+  background: transparent !important;
+}

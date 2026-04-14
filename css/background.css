@@ -1,0 +1,28 @@
+/* ==========================================================================
+   YouTube Unified — css/background.css
+   Fixed background image rendered behind all page content.
+
+   The actual image URL and filter values are injected at runtime by
+   backgroundModule in content.js, reading from CONFIG. This file only
+   provides the structural shell; the <style id="yt-unified-bg"> tag
+   in the document head carries the live values.
+
+   Keeping the structural rule here ensures the pseudo-element is always
+   registered even if JS hasn't run yet (e.g. very slow machines).
+   ========================================================================== */
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+
+  /* Placeholder — overridden immediately by backgroundModule */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+
+  /* GPU-composite layer: avoids repaints on scroll */
+  will-change: transform;
+}

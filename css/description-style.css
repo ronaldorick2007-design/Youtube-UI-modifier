@@ -1,0 +1,90 @@
+/* ==========================================================================
+   YouTube Unified — css/description-style.css
+   Applies a styled white background to the video description panel.
+
+   ACTIVATION
+   ─────────────────────────────────────────────────────────────────────────
+   All rules are gated behind  body[data-yt-description-style].
+   Stamped by stateManager in content.js when the popup toggle is ON.
+   When absent this file is a no-op — zero interference with themes.
+
+   DESIGN DECISIONS
+   ─────────────────────────────────────────────────────────────────────────
+   • White (#ffffff) background on the description expand/collapse box.
+   • Text forced to near-black so it stays readable on the white surface
+     regardless of which card theme (glass/cyber/minimal) is active.
+   • Border radius and padding harmonise with YouTube's own component shape;
+     we never touch margin or width so layout is undisturbed.
+   • Link colour is overridden to a legible blue (YouTube's default link
+     colour is designed for dark backgrounds and becomes hard to read on
+     white without this).
+   • !important used only where YouTube's own component inline styles or
+     high-specificity shadow-DOM rules would otherwise win.
+   • No layout properties (position, display, float, flex, grid) are set.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Description box — outer collapsible container
+   Covers both the expanded (#description-inner) and collapsed (#snippet)
+   states that YouTube toggles between.
+   -------------------------------------------------------------------------- */
+body[data-yt-description-style] ytd-text-inline-expander,
+body[data-yt-description-style] ytd-watch-metadata #description,
+body[data-yt-description-style] #description.ytd-watch-metadata,
+body[data-yt-description-style] ytd-watch-metadata #description-inner,
+body[data-yt-description-style] #description-inner {
+  background: #ffffff !important;
+  border-radius: 12px !important;
+  padding: 14px 16px !important;
+
+  /* Subtle shadow so the white panel lifts off the dark background cleanly */
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.18) !important;
+}
+
+/* --------------------------------------------------------------------------
+   Description text — body copy and expanded/snippet text nodes
+   -------------------------------------------------------------------------- */
+body[data-yt-description-style] #description yt-formatted-string,
+body[data-yt-description-style] #description-inner yt-formatted-string,
+body[data-yt-description-style] #snippet yt-formatted-string,
+body[data-yt-description-style] ytd-text-inline-expander yt-formatted-string,
+body[data-yt-description-style] ytd-text-inline-expander span {
+  color: #0f0f0f !important;
+}
+
+/* --------------------------------------------------------------------------
+   Links inside description — keep them legible on white
+   -------------------------------------------------------------------------- */
+body[data-yt-description-style] #description yt-formatted-string a,
+body[data-yt-description-style] #description-inner yt-formatted-string a,
+body[data-yt-description-style] ytd-text-inline-expander a {
+  color: #065fd4 !important;   /* YouTube's brand blue — correct on white */
+}
+
+body[data-yt-description-style] #description yt-formatted-string a:hover,
+body[data-yt-description-style] #description-inner yt-formatted-string a:hover,
+body[data-yt-description-style] ytd-text-inline-expander a:hover {
+  color: #0041a8 !important;
+  text-decoration: underline !important;
+}
+
+/* --------------------------------------------------------------------------
+   "Show more" / "Show less" button — keep it readable on white
+   -------------------------------------------------------------------------- */
+body[data-yt-description-style] ytd-text-inline-expander #expand,
+body[data-yt-description-style] ytd-text-inline-expander #collapse,
+body[data-yt-description-style] #description tp-yt-paper-button,
+body[data-yt-description-style] #description ytd-button-renderer {
+  color: #606060 !important;
+}
+
+/* --------------------------------------------------------------------------
+   Bottom row — likes, buttons, menu bar below the video title
+   Always active (not toggle-gated).
+   -------------------------------------------------------------------------- */
+#bottom-row.ytd-watch-metadata {
+  background: #ffffff !important;
+  border-radius: 12px !important;
+  padding: 10px 14px !important;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.18) !important;
+}

@@ -1,0 +1,87 @@
+/* ==========================================================================
+   YouTube Unified — css/block-shorts.css
+   Hides YouTube Shorts from all feed surfaces.
+
+   ACTIVATION
+   ─────────────────────────────────────────────────────────────────────────
+   All rules are scoped behind  body[data-yt-block-shorts]  which is stamped
+   by popup.js via the shortsBlocker module in content.js.
+   When the toggle is OFF the attribute is absent and this entire file is
+   a no-op — nothing is hidden.
+
+   COVERAGE
+   ─────────────────────────────────────────────────────────────────────────
+   • Shelf containers  — the "Shorts" shelf row that appears between videos
+   • Rich-section rows — full-width promotional Shorts banners
+   • Individual reel items inside any grid or list
+   • Lockup cards whose href contains /shorts/
+   • Sidebar / related panel Shorts cards
+   • Navigation chip labelled "Shorts"
+
+   CSS-only approach is sufficient for initially-rendered nodes.
+   The content.js shortsBlocker module handles dynamically injected nodes
+   via the shared MutationObserver so nothing slips through on SPA navigation.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Shorts shelf — the dedicated "Shorts" horizontal carousel row
+   -------------------------------------------------------------------------- */
+body[data-yt-block-shorts] ytd-reel-shelf-renderer,
+body[data-yt-block-shorts] ytd-rich-shelf-renderer[is-shorts],
+body[data-yt-block-shorts] ytd-rich-shelf-renderer[component-style="RICH_SHELF_STYLE_SHORTS"] {
+  display: none !important;
+}
+
+/* --------------------------------------------------------------------------
+   Rich section rows — promotional full-width Shorts banner blocks
+   -------------------------------------------------------------------------- */
+body[data-yt-block-shorts] ytd-rich-section-renderer:has(ytd-reel-shelf-renderer),
+body[data-yt-block-shorts] ytd-rich-section-renderer:has(ytd-statement-banner-renderer) {
+  display: none !important;
+}
+
+/* --------------------------------------------------------------------------
+   Individual reel / Short video items in grid or list context
+   -------------------------------------------------------------------------- */
+body[data-yt-block-shorts] ytd-reel-item-renderer,
+body[data-yt-block-shorts] ytd-rich-item-renderer:has(ytd-reel-item-renderer) {
+  display: none !important;
+}
+
+/* --------------------------------------------------------------------------
+   Lockup cards — newer view-model cards whose link points to /shorts/
+   Attribute selector on the anchor's href; does not affect normal videos.
+   -------------------------------------------------------------------------- */
+body[data-yt-block-shorts] a.yt-lockup-view-model-wiz__content-image[href*="/shorts/"],
+body[data-yt-block-shorts] ytd-rich-item-renderer:has(a[href*="/shorts/"]),
+body[data-yt-block-shorts] ytd-video-renderer:has(a[href*="/shorts/"]),
+body[data-yt-block-shorts] ytd-compact-video-renderer:has(a[href*="/shorts/"]),
+body[data-yt-block-shorts] ytd-grid-video-renderer:has(a[href*="/shorts/"]) {
+  display: none !important;
+}
+
+/* --------------------------------------------------------------------------
+   Sidebar / related panel Shorts items
+   -------------------------------------------------------------------------- */
+body[data-yt-block-shorts] #related ytd-compact-video-renderer:has(a[href*="/shorts/"]),
+body[data-yt-block-shorts] ytd-watch-next-secondary-results-renderer ytd-compact-video-renderer:has(a[href*="/shorts/"]) {
+  display: none !important;
+}
+
+/* --------------------------------------------------------------------------
+   Search results — Shorts items and shelves inside search page
+   -------------------------------------------------------------------------- */
+body[data-yt-block-shorts] ytd-search ytd-video-renderer:has(a[href*="/shorts/"]),
+body[data-yt-block-shorts] ytd-section-list-renderer ytd-reel-shelf-renderer {
+  display: none !important;
+}
+
+/* --------------------------------------------------------------------------
+   Navigation chip / filter pill labelled "Shorts"
+   Hides the Shorts chip in the category filter bar without removing others.
+   -------------------------------------------------------------------------- */
+body[data-yt-block-shorts] yt-chip-cloud-chip-renderer:has(a[href*="shorts"]),
+body[data-yt-block-shorts] ytd-guide-entry-renderer a[href="/shorts"],
+body[data-yt-block-shorts] ytd-mini-guide-entry-renderer a[href="/shorts"] {
+  display: none !important;
+}

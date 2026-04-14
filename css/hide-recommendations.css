@@ -1,0 +1,26 @@
+/* ==========================================================================
+   YouTube Unified — css/hide-recommendations.css
+   Hides the recommendations sidebar on /watch pages.
+
+   ACTIVATION
+   ─────────────────────────────────────────────────────────────────────────
+   Gated behind  body[data-yt-hide-recommendations].
+   The attribute is set/removed by the popup toggle via stateManager in
+   content.js (same mechanism as all other feature toggles).
+
+   TARGETS — PRECISE AND SAFE
+   ─────────────────────────────────────────────────────────────────────────
+   Only ytd-watch-next-secondary-results-renderer is targeted.
+   This is the specific element containing the "Up Next" / related video list.
+
+   DOM structure on /watch:
+     #secondary
+     ├── ytd-watch-next-secondary-results-renderer  ← ONLY this is hidden
+     └── ytd-engagement-panel-section-list-renderer ← Gemini panel — NOT touched
+
+   #secondary itself is NOT targeted — hiding it would also hide Gemini.
+   ========================================================================== */
+
+body[data-yt-hide-recommendations] ytd-watch-next-secondary-results-renderer {
+  display: none !important;
+}
