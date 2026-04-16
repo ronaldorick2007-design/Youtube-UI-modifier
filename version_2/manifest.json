@@ -1,0 +1,15 @@
+{
+    "manifest_version":3,
+    "name" : "Shorts blocker",
+    "version" : "1.0",
+    "description" : "Block YouTube shorts",
+    "permissions": [
+        "activeTab"
+        ],
+    "content_scripts" : [
+        {
+            "matches" : ["*://www.youtube.com/*"],
+            "js" : ["content.js"]
+        }
+    ]
+}
