@@ -1,5 +1,26 @@
-//content script for blocking youtube elements
 
+//content script for applying glass effect to header
+const style = document.createElement("style");
+
+style.innerHTML = `
+
+/* apply glass */
+ytd-masthead #container {
+    background: rgba(255, 255, 255, 0.03) !important;
+    backdrop-filter: blur(18px) !important;
+    -webkit-backdrop-filter: blur(18px) !important;
+    border-bottom: 1px solid rgba(255,255,255,0.08) !important;
+}
+
+/* remove extra overlays */
+#background, #masthead-container {
+    background: transparent !important;
+}`;
+
+document.head.appendChild(style);
+
+
+//content script for blocking youtube elements
 function blockShorts(){
 //Remove shorts shelf in search page
 const item = ".ytGridShelfViewModelHost";
@@ -15,7 +36,7 @@ document.querySelectorAll('ytd-video-renderer').forEach(card => {
     }
 });
 //Removes shorts shelf in recommedations
-document.querySelectorAll('ytd-reel-shelf-renderer').forEach(el => {
+document.querySelectorAll('ytd-feed-nudge-renderer').forEach(el => {
     el.remove();
 });
 //Remove recommendation videos
