@@ -1,0 +1,26 @@
+{
+  "manifest_version": 3,
+  "name": "YouTube Custom Controller",
+  "version": "1.0",
+  "description": "Glass header + toggleable blocks (shorts, recommendations, comments)",
+  "permissions": [
+    "storage"
+  ],
+  "host_permissions": [
+    "*://www.youtube.com/*"
+  ],
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "*://www.youtube.com/*"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ]
+}
