@@ -1,6 +1,7 @@
 document.querySelectorAll('ytd-feed-nudge-renderer').forEach(el => {
     el.remove();
 });
+
 // ===== GLASS =====
 function applyGlass() {
   if (document.getElementById("glass-style")) return;
@@ -67,6 +68,31 @@ function applyBlocks(settings) {
   style.innerHTML = css;
 }
 
+// ===== 10s DELAY FOR RECOMMENDATIONS (NEW) =====
+function delayedRecommendations(settings) {
+  // Always hide recommendations immediately
+  let style = document.getElementById("recommend-delay-style");
+  if (!style) {
+    style = document.createElement("style");
+    style.id = "recommend-delay-style";
+    style.innerHTML = `
+      #related,
+      ytd-watch-next-secondary-results-renderer,
+      ytd-compact-video-renderer {
+        display: none !important;
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
+  // After 10 seconds → apply actual logic
+  setTimeout(() => {
+    style.remove();
+    applyBlocks(settings);
+  }, 3000);
+}
+
+// ===== SETTINGS =====
 function applySettings() {
   chrome.storage.local.get(["glass","shorts","recommend","comments"], (settings) => {
     settings = Object.assign({glass:false, shorts:false, recommend:false, comments:false}, settings);
@@ -74,7 +100,8 @@ function applySettings() {
     if (settings.glass) applyGlass();
     else removeGlass();
 
-    applyBlocks(settings);
+    // ⬇️ ONLY CHANGE HERE
+    delayedRecommendations(settings);
   });
 }
 
@@ -88,8 +115,11 @@ chrome.runtime.onMessage.addListener((msg) => {
     if (msg.feature === "glass") {
       msg.value ? applyGlass() : removeGlass();
     }
-    applyBlocks(settings);
+
+    // ⬇️ ONLY CHANGE HERE
+    delayedRecommendations(settings);
   });
 });
 
+// initial load
 setTimeout(applySettings, 800);
