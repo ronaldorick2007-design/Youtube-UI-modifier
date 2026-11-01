@@ -1,0 +1,273 @@
+/* ══════════════════════════════════════════════════════
+   YouTube Ultimate Suite — popup.css
+   ══════════════════════════════════════════════════════ */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  width: 360px;
+  background: #0d0d0d;
+  color: #fff;
+  font-family: "DM Mono", "Fira Mono", "Consolas", monospace;
+  font-size: 16px;
+  padding: 14px;
+  letter-spacing: 0.03em;
+}
+
+/* ── Header ── */
+header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #1e1e1e;
+}
+
+header h1 {
+  font-size: 16px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: #fff;
+}
+
+header span {
+  font-size: 16px;
+  color: #fff;
+  display: block;
+  margin-top: 1px;
+}
+
+/* ── Section label ── */
+.section-label {
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #fff;
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+section { margin-bottom: 6px; }
+
+/* ── Divider ── */
+.divider { height: 1px; background: #1a1a1a; margin: 10px 0; }
+
+/* ── Toggle row ── */
+.toggle-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.toggle-label {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #fff;
+  font-size: 16px;
+}
+
+/* ── Toggle switch ── */
+.toggle {
+  position: relative;
+  width: 32px;
+  height: 17px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.toggle input { display: none; }
+
+.toggle-track {
+  position: absolute;
+  inset: 0;
+  background: #1e1e1e;
+  border: 1px solid #2e2e2e;
+  border-radius: 20px;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.toggle-thumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 11px;
+  height: 11px;
+  background: #444;
+  border-radius: 50%;
+  transition: transform 0.2s, background 0.2s;
+}
+
+.toggle input:checked ~ .toggle-track {
+  background: #1f0a0a;
+  border-color: #ff4444;
+}
+
+.toggle input:checked ~ .toggle-thumb {
+  transform: translateX(15px);
+  background: #ff4444;
+}
+
+/* ── Theme buttons ── */
+.theme-group {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.theme-btn {
+  flex: 1;
+  padding: 5px 3px;
+  background: #1a1a1a;
+  border: 1px solid #2a2a2a;
+  border-radius: 5px;
+  color: #fff;
+  font-family: inherit;
+  font-size: 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  cursor: pointer;
+  text-align: center;
+  transition: border-color 0.15s, color 0.15s, background 0.15s;
+}
+
+.theme-btn:hover { border-color: #444; color: #fff; }
+
+.theme-btn.active { border-color: #ff4444; color: #fff; background: #1f0a0a; }
+
+.theme-btn[data-theme="cyber"].active {
+  border-color: #7a28ff; background: #0d0a1f; color: #00f0ff;
+}
+
+.theme-btn[data-theme="cars"].active {
+  border-color: #ff5a00; background: #1a0800; color: #ffd000;
+}
+
+/* ── Custom panel ── */
+#custom-panel { transition: opacity 0.2s; }
+#custom-panel.disabled { opacity: 0.25; pointer-events: none; }
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.row:last-child { margin-bottom: 0; }
+
+label {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #fff;
+  font-size: 16px;
+}
+
+.control { display: flex; align-items: center; gap: 6px; }
+
+select {
+  background: #1a1a1a;
+  color: #fff;
+  border: 1px solid #2a2a2a;
+  border-radius: 4px;
+  padding: 3px 6px;
+  font-family: inherit;
+  font-size: 16px;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  outline: none;
+  min-width: 106px;
+}
+
+select:focus { border-color: #ff4444; }
+
+.swatch {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 1px solid #333;
+  flex-shrink: 0;
+}
+
+/* ── Wallpaper section ── */
+.mini-row {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 8px;
+}
+
+.mini-row input,
+.mini-row button,
+#wp-dropdown {
+  font-family: inherit;
+  font-size: 16px;
+}
+
+.mini-row input {
+  background: #1a1a1a;
+  border: 1px solid #2a2a2a;
+  border-radius: 4px;
+  padding: 5px 7px;
+  color: #fff;
+  outline: none;
+  width: 100%;
+}
+
+.mini-row input:focus { border-color: #ff4444; }
+
+.mini-row button,
+.btn-row button {
+  padding: 5px 8px;
+  background: #1f1f1f;
+  border: 1px solid #2a2a2a;
+  border-radius: 4px;
+  color: #fff;
+  font-family: inherit;
+  font-size: 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.mini-row button:hover,
+.btn-row button:hover { border-color: #ff4444; color: #fff; }
+
+.btn-row button.danger { border-color: #500; color: #f44; }
+.btn-row button.danger:hover { background: #200; }
+.btn-row button.muted { color: #fff; }
+
+#wp-dropdown {
+  width: 100%;
+  background: #1a1a1a;
+  color: #fff;
+  border: 1px solid #2a2a2a;
+  border-radius: 4px;
+  padding: 4px;
+  margin-bottom: 8px;
+}
+
+.btn-row {
+  display: flex;
+  gap: 5px;
+  margin-bottom: 6px;
+}
+
+#wp-current, #wp-status {
+  font-size: 16px;
+  color: #fff;
+  margin-top: 3px;
+  min-height: 12px;
+}
+
+#wp-status { color: #4caf50; }
+
+/* ── Hint text ── */
+.hint {
+  font-size: 16px;
+  color: #fff;
+  line-height: 1.5;
+  margin-top: 4px;
+}
