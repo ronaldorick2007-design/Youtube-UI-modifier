@@ -1,0 +1,39 @@
+{
+  "manifest_version": 3,
+  "name": "YouTube Ultimate Suite + Dash",
+  "version": "4.5.0",
+  "description": "Thumbnail Shroud, Block Controls, Card Themes, Wallpaper Engine, Gemini Auto-Prompt, Search Dashboard Grid.",
+
+  "permissions": [
+    "storage",
+    "tabs"
+  ],
+
+  "host_permissions": [
+    "*://*.youtube.com/*"
+  ],
+
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "YT Ultimate Suite + Dash"
+  },
+
+  "content_scripts": [
+    {
+      "matches": ["*://*.youtube.com/*"],
+      "js": ["content.js"],
+      "css": ["styles.css"],
+      "run_at": "document_idle"
+    }
+  ],
+
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "youtube-unified-dash@extension",
+      "data_collection_permissions": {
+        "required": ["none"],
+        "optional": []
+      }
+    }
+  }
+}
