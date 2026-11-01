@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>YT Ultimate Suite + Dash</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+
+  <header>
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="1" y="1" width="18" height="18" rx="4" stroke="#ff4444" stroke-width="1.5"/>
+      <polygon points="8,6 15,10 8,14" fill="#ff4444"/>
+    </svg>
+    <div>
+      <h1>YT Ultimate Suite</h1>
+      <span>6 extensions, one popup</span>
+    </div>
+  </header>
+
+  <!-- ══ SECTION 1: Thumbnail Control ══ -->
+  <section>
+    <div class="section-label">Thumbnail Control</div>
+
+    <div class="toggle-row">
+      <span class="toggle-label">Search Page</span>
+      <label class="toggle">
+        <input type="checkbox" id="acb-search" />
+        <span class="toggle-track"></span>
+        <span class="toggle-thumb"></span>
+      </label>
+    </div>
+
+    <div class="toggle-row">
+      <span class="toggle-label">Recommendations</span>
+      <label class="toggle">
+        <input type="checkbox" id="acb-recommend" />
+        <span class="toggle-track"></span>
+        <span class="toggle-thumb"></span>
+      </label>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══ SECTION 2: Header & Blocks ══ -->
+  <section>
+    <div class="section-label">Header &amp; Blocks</div>
+
+    <div class="toggle-row">
+      <span class="toggle-label">Glass Header</span>
+      <label class="toggle">
+        <input type="checkbox" id="blk-glass" />
+        <span class="toggle-track"></span>
+        <span class="toggle-thumb"></span>
+      </label>
+    </div>
+
+    <div class="toggle-row">
+      <span class="toggle-label">Hide Shorts</span>
+      <label class="toggle">
+        <input type="checkbox" id="blk-shorts" />
+        <span class="toggle-track"></span>
+        <span class="toggle-thumb"></span>
+      </label>
+    </div>
+
+    <div class="toggle-row">
+      <span class="toggle-label">Hide Recommendations</span>
+      <label class="toggle">
+        <input type="checkbox" id="blk-recommend" />
+        <span class="toggle-track"></span>
+        <span class="toggle-thumb"></span>
+      </label>
+    </div>
+
+    <div class="toggle-row">
+      <span class="toggle-label">Hide Comments</span>
+      <label class="toggle">
+        <input type="checkbox" id="blk-comments" />
+        <span class="toggle-track"></span>
+        <span class="toggle-thumb"></span>
+      </label>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══ SECTION 3: Card Themes ══ -->
+  <section>
+    <div class="section-label">Card Themes</div>
+
+    <div class="theme-group">
+      <button class="theme-btn active" data-theme="custom">Custom</button>
+      <button class="theme-btn" data-theme="cyber">⚡ Cyber</button>
+      <button class="theme-btn" data-theme="cars">🔴 Cars</button>
+    </div>
+
+    <div class="toggle-row">
+      <span class="toggle-label">Translucent Cards</span>
+      <label class="toggle">
+        <input type="checkbox" id="vc-translucent" />
+        <span class="toggle-track"></span>
+        <span class="toggle-thumb"></span>
+      </label>
+    </div>
+
+    <div id="custom-panel">
+      <div class="row">
+        <label>Border</label>
+        <div class="control">
+          <span class="swatch" id="border-swatch"></span>
+          <select id="border-color">
+            <option value="transparent">None</option>
+            <option value="#ffffff">White</option>
+            <option value="#000000">Black</option>
+            <option value="#ff4444">Red</option>
+            <option value="#ff8800">Orange</option>
+            <option value="#ffdd00">Yellow</option>
+            <option value="#44ff88">Green</option>
+            <option value="#00ccff">Cyan</option>
+            <option value="#4488ff">Blue</option>
+            <option value="#aa44ff">Purple</option>
+            <option value="#ff44cc">Pink</option>
+            <option value="#888888">Gray</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row">
+        <label>Glass Tint</label>
+        <div class="control">
+          <span class="swatch" id="glass-swatch"></span>
+          <select id="glass-color">
+            <option value="rgba(0,0,0,0)">None</option>
+            <option value="rgba(255,255,255,0.15)">White Frost</option>
+            <option value="rgba(0,0,0,0.35)">Dark Smoke</option>
+            <option value="rgba(255,60,60,0.25)">Red Tint</option>
+            <option value="rgba(255,140,0,0.25)">Amber Tint</option>
+            <option value="rgba(255,220,0,0.2)">Gold Tint</option>
+            <option value="rgba(0,220,100,0.2)">Green Tint</option>
+            <option value="rgba(0,200,255,0.2)">Cyan Tint</option>
+            <option value="rgba(50,100,255,0.25)">Blue Tint</option>
+            <option value="rgba(160,50,255,0.25)">Purple Tint</option>
+            <option value="rgba(255,50,180,0.2)">Pink Tint</option>
+            <option value="rgba(0,0,0,0.55)">Heavy Smoke</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row">
+        <label>Font</label>
+        <div class="control">
+          <span class="swatch" id="font-swatch"></span>
+          <select id="font-color">
+            <option value="inherit">Default</option>
+            <option value="#ffffff">White</option>
+            <option value="#e0e0e0">Silver</option>
+            <option value="#a0a0a0">Gray</option>
+            <option value="#000000">Black</option>
+            <option value="#ff4444">Red</option>
+            <option value="#ff8800">Orange</option>
+            <option value="#ffdd00">Yellow</option>
+            <option value="#44ff88">Green</option>
+            <option value="#00ccff">Cyan</option>
+            <option value="#4488ff">Blue</option>
+            <option value="#aa44ff">Purple</option>
+            <option value="#ff44cc">Pink</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══ SECTION 4: Wallpaper ══ -->
+  <section>
+    <div class="section-label">Wallpaper Engine</div>
+
+    <div class="mini-row">
+      <input id="wp-name" placeholder="Name" />
+      <input id="wp-url"  placeholder="Image URL" />
+      <button id="wp-add">Add</button>
+    </div>
+
+    <select id="wp-dropdown" size="4"></select>
+
+    <div class="btn-row">
+      <button id="wp-apply">Apply</button>
+      <button id="wp-delete" class="danger">Delete</button>
+      <button id="wp-clear"  class="muted">Clear</button>
+    </div>
+
+    <div id="wp-current"></div>
+    <div id="wp-status"></div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══ SECTION 5: Gemini Auto-Prompt ══ -->
+  <section>
+    <div class="section-label">Gemini Auto-Prompt</div>
+
+    <div class="toggle-row">
+      <span class="toggle-label">Auto-open &amp; prompt Gemini</span>
+      <label class="toggle">
+        <input type="checkbox" id="gc-enabled" />
+        <span class="toggle-track"></span>
+        <span class="toggle-thumb"></span>
+      </label>
+    </div>
+    <p class="hint">On each YouTube watch page, opens the Gemini panel and requests a WATCH/SKIP verdict.</p>
+  </section>
+  <div class="input-row" style="margin-top:10px;">
+    <textarea id="gc-prompt" placeholder="Enter custom Gemini prompt..."
+      style="width:100%; min-height:80px; border-radius:8px; padding:8px;"></textarea>
+  </div>
+  <p class="hint">Custom prompt (leave empty to use default).</p>
+
+  <div class="divider"></div>
+
+  <!-- ══ SECTION 6: Search Dashboard Grid ══ -->
+  <section>
+    <div class="section-label">Search Dashboard</div>
+
+    <div class="toggle-row">
+      <span class="toggle-label">Enable Grid Layout</span>
+      <label class="toggle">
+        <input type="checkbox" id="dash-enabled" />
+        <span class="toggle-track"></span>
+        <span class="toggle-thumb"></span>
+      </label>
+    </div>
+    <p class="hint">On YouTube search results: arranges videos into a 6-per-row grid and slowly auto-scrolls to load more.</p>
+
+    <div class="row" style="margin-top:8px;">
+      <label style="font-size:13px; color:#aaa;">Scroll Speed</label>
+      <div class="control" style="display:flex; align-items:center; gap:8px;">
+        <input type="range" id="dash-speed" min="500" max="8000" step="500"
+          style="width:120px; accent-color:#ff4444;" />
+        <span id="dash-speed-label" style="font-size:13px; color:#aaa; min-width:48px;">2000ms</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══ SECTION 7: Educational Filter ══ -->
+  <section>
+    <div class="section-label">Educational Filter</div>
+
+    <div class="row" style="margin-bottom:10px;">
+      <label style="font-size:13px;color:#aaa;">Filter Mode</label>
+      <select id="filter-mode" style="background:#1a1a1a;color:#fff;border:1px solid #333;border-radius:6px;padding:4px 8px;font-size:13px;">
+        <option value="both">Whitelist + Keywords</option>
+        <option value="whitelist">Whitelist Only</option>
+        <option value="keywords">Keyword Block Only</option>
+        <option value="off">Off (show all)</option>
+      </select>
+    </div>
+
+    <div class="section-label" style="font-size:12px;margin-top:8px;">Allowed Channels</div>
+    <div class="mini-row">
+      <input id="chan-input" placeholder="Channel name" />
+      <button id="chan-add">Add</button>
+    </div>
+    <select id="chan-list" size="5" style="width:100%;margin-top:6px;background:#111;color:#fff;border:1px solid #333;border-radius:6px;"></select>
+    <div class="btn-row" style="margin-top:6px;">
+      <button id="chan-delete" class="danger">Delete</button>
+    </div>
+
+    <div class="section-label" style="font-size:12px;margin-top:12px;">Blocked Title Words</div>
+    <div class="mini-row">
+      <input id="word-input" placeholder="Word or phrase" />
+      <button id="word-add">Add</button>
+    </div>
+    <select id="word-list" size="5" style="width:100%;margin-top:6px;background:#111;color:#fff;border:1px solid #333;border-radius:6px;"></select>
+    <div class="btn-row" style="margin-top:6px;">
+      <button id="word-delete" class="danger">Delete</button>
+    </div>
+  </section>
+
+  <script src="popup.js"></script>
+</body>
+</html>
