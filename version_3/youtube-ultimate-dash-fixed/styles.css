@@ -1,0 +1,243 @@
+/* ══════════════════════════════════════════════════════
+   YouTube Ultimate Suite — styles.css
+   Source: video-card extension (preserved verbatim + scoped)
+   ══════════════════════════════════════════════════════ */
+
+/* ── CSS Variables ── */
+:root {
+  --yt-border-color: transparent;
+  --yt-glass-color:  rgba(0, 0, 0, 0);
+  --yt-font-color:   inherit;
+}
+
+/* ══════════════════════════════════════════════════════
+   CUSTOM MODE  (no data-yt-theme on body, or "custom")
+   ══════════════════════════════════════════════════════ */
+
+[data-yt-card-style="active"] {
+  position: relative !important;
+  border-radius: 10px !important;
+  /* overflow: hidden removed — it clips inline hover-playback previews */
+  border: 4px solid var(--yt-border-color) !important;
+  transition: transform 0.18s ease, box-shadow 0.18s ease !important;
+  will-change: transform;
+}
+
+/* Glass overlay — sits behind content, never clips thumbnails */
+[data-yt-card-style="active"]::before {
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  background: var(--yt-glass-color) !important;
+  pointer-events: none !important;
+  z-index: 0 !important;
+  /* border-radius matches card so glass doesn't bleed outside rounded corners */
+  border-radius: 8px !important;
+}
+
+/* Lift only the innermost dismissable wrappers above the ::before glass layer.
+   DO NOT set position:relative on ytd-thumbnail, #thumbnail, or any flex/grid
+   children — that breaks YouTube's native two-column card layout (thumbnail left,
+   metadata right) by collapsing them into a single stacking column. */
+[data-yt-card-style="active"] #dismissible,
+[data-yt-card-style="active"] #details {
+  position: relative !important;
+  z-index: 1 !important;
+}
+
+/* Subtle hover for custom mode */
+[data-yt-card-style="active"]:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4) !important;
+  z-index: 5 !important;
+}
+
+/* Font color — color only, no position override on inline text nodes */
+[data-yt-card-style="active"] #video-title,
+[data-yt-card-style="active"] #video-title a,
+[data-yt-card-style="active"] yt-formatted-string#video-title,
+[data-yt-card-style="active"] .yt-core-attributed-string,
+[data-yt-card-style="active"] #channel-name yt-formatted-string,
+[data-yt-card-style="active"] #metadata-line span,
+[data-yt-card-style="active"] span.inline-metadata-item {
+  color: var(--yt-font-color) !important;
+}
+
+/* ── Translucent mode ── */
+body[data-yt-translucent] [data-yt-card-style="active"] {
+  backdrop-filter: blur(14px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(14px) saturate(180%) !important;
+}
+
+/* ══════════════════════════════════════════════════════
+   PRESET: CYBER
+   ══════════════════════════════════════════════════════ */
+
+@property --yt-theme-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+body[data-yt-theme="cyber"] [data-yt-card-style="active"] {
+  position: relative !important;
+  background: rgba(0, 0, 0, 0.55) !important;
+  border-radius: 8px !important;
+  border: 1px solid rgba(120, 40, 255, 0.6) !important;
+  box-shadow:
+    0 0 8px rgba(120, 40, 255, 0.35),
+    inset 0 0 4px rgba(0, 200, 255, 0.05) !important;
+  padding: 8px !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease !important;
+  will-change: transform;
+  overflow: hidden !important;
+}
+
+body[data-yt-theme="cyber"] [data-yt-card-style="active"]::before {
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  border-radius: inherit !important;
+  padding: 10px !important;
+  background: conic-gradient(
+    from var(--yt-theme-angle),
+    #00f0ff, #7a28ff, #ff00c8, #00f0ff
+  ) !important;
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  z-index: 0 !important;
+}
+
+body[data-yt-theme="cyber"] [data-yt-card-style="active"]:hover {
+  transform: scale(1.04) translateY(-2px) !important;
+  z-index: 10 !important;
+  border-color: rgba(0, 200, 255, 0.9) !important;
+  box-shadow:
+    0 0 18px rgba(0, 200, 255, 0.6),
+    0 0 40px rgba(120, 40, 255, 0.4),
+    0 12px 30px rgba(0, 0, 0, 0.8) !important;
+}
+
+body[data-yt-theme="cyber"] [data-yt-card-style="active"]:hover::before {
+  opacity: 1 !important;
+  animation: yt-theme-cyber-spin 1.6s linear infinite !important;
+}
+
+@keyframes yt-theme-cyber-spin {
+  to { --yt-theme-angle: 360deg; }
+}
+
+/* ══════════════════════════════════════════════════════
+   PRESET: CARS (Ferrari)
+   ══════════════════════════════════════════════════════ */
+
+body[data-yt-theme="cars"] [data-yt-card-style="active"] {
+  position: relative !important;
+  background: linear-gradient(
+    145deg,
+    rgba(10, 10, 10, 0.9),
+    rgba(25, 0, 0, 0.85)
+  ) !important;
+  border-radius: 4px !important;
+  border: 1px solid rgba(255, 30, 30, 0.7) !important;
+  box-shadow:
+    0 0 6px rgba(255, 0, 0, 0.25),
+    inset 0 0 8px rgba(255, 60, 0, 0.08),
+    inset 0 0 2px rgba(255, 255, 255, 0.05) !important;
+  padding: 8px !important;
+  transition:
+    transform 0.18s cubic-bezier(0.2, 0.8, 0.2, 1),
+    box-shadow 0.18s ease,
+    border-color 0.18s ease !important;
+  will-change: transform;
+  overflow: hidden !important;
+}
+
+body[data-yt-theme="cars"] [data-yt-card-style="active"]::before {
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  border-radius: inherit !important;
+  padding: 8px !important;
+  background: conic-gradient(
+    from var(--yt-theme-angle),
+    #ff0000, #ff5a00, #ffd000, #ffffff, #ff0000
+  ) !important;
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  z-index: 0 !important;
+}
+
+body[data-yt-theme="cars"] [data-yt-card-style="active"]:hover {
+  transform: scale(1.05) translateY(-3px) !important;
+  z-index: 12 !important;
+  border-color: rgba(255, 80, 0, 1) !important;
+  box-shadow:
+    0 0 14px rgba(255, 0, 0, 0.7),
+    0 0 30px rgba(255, 80, 0, 0.5),
+    0 10px 28px rgba(0, 0, 0, 0.9) !important;
+}
+
+body[data-yt-theme="cars"] [data-yt-card-style="active"]:hover::before {
+  opacity: 1 !important;
+  animation: yt-theme-cars-spin 1.2s linear infinite !important;
+}
+
+body[data-yt-theme="cars"] [data-yt-card-style="active"]::after {
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  background: linear-gradient(
+    120deg,
+    transparent 40%,
+    rgba(255, 255, 255, 0.08) 50%,
+    transparent 60%
+  ) !important;
+  opacity: 0 !important;
+  transform: translateX(-100%) !important;
+  pointer-events: none !important;
+  z-index: 1 !important;
+}
+
+body[data-yt-theme="cars"] [data-yt-card-style="active"]:hover::after {
+  opacity: 1 !important;
+  transform: translateX(120%) !important;
+  transition: transform 1.5s ease !important;
+}
+
+@keyframes yt-theme-cars-spin {
+  to { --yt-theme-angle: 360deg; }
+}
+
+/* ══════════════════════════════════════════════════════
+   ISSUE 2 — Search thumbnail safeguard
+   Never hide or clip lazy-loaded thumbnails.
+   No position/z-index overrides on img — those break layout.
+   ══════════════════════════════════════════════════════ */
+[data-yt-card-style="active"] ytd-thumbnail img,
+[data-yt-card-style="active"] #thumbnail img,
+[data-yt-card-style="active"] yt-image img {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+/* ══════════════════════════════════════════════════════
+   ISSUE 3 — Force readable comments & description
+   Scoped exactly to target elements only.
+   ══════════════════════════════════════════════════════ */
+ytd-text-inline-expander,
+ytd-comment-view-model {
+  background: rgb(255, 255, 255) !important;
+  border-radius: 6px !important;
+}
